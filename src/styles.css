@@ -1,0 +1,123 @@
+/* =====================================================================
+   FILE: src/styles.css  (GLOBAL STYLES)
+   WHY:  Styles written here apply to the WHOLE app. We keep only things
+         that every component shares: design tokens, a CSS reset, base
+         typography and the button style.
+         Anything specific to one component lives in that component's
+         own .css file instead.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   STEP 1: Design tokens.
+   Open the "Brand & color" and "Navigation & responsive rhythm" sections
+   of the UI kit in Figma. Every value below was copied from there.
+   WHY: CSS variables give each value ONE name. If the university changes
+        the red tomorrow, you edit one line, not fifty.
+   --------------------------------------------------------------------- */
+:root {
+  /* Colors (UI kit > Brand & color) */
+  --color-ink: #202020;          /* primary text */
+  --color-red: #B52430;          /* actions & active states */
+  --color-red-hover: #8E1D27;    /* approximate: check the kit's "Hover" swatch */
+  --color-gold: #D39424;         /* highlights */
+  --color-white: #FFFFFF;        /* surfaces / cards */
+  --color-canvas: #F5F5F3;       /* page background */
+  --color-muted: #73736F;        /* secondary text */
+  --color-border: #DDDDD8;       /* dividers & card borders */
+  --color-gold-tint: #F5ECD8;    /* tags */
+
+  /* Fonts (UI kit > Typography) */
+  --font-serif: 'Lora', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Spacing scale (UI kit > Spacing & geometry): 4 8 12 16 20 24 32 48 64 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 48px;
+  --space-9: 64px;
+
+  /* Shape */
+  --radius-control: 4px;   /* buttons & inputs */
+  --radius-card: 8px;      /* cards */
+
+  /* Page side margin: 64px on desktop, 20px on mobile (see media query) */
+  --page-margin: 64px;
+}
+
+/* STEP 2: On small screens the kit uses 20px side margins. */
+@media (max-width: 720px) {
+  :root { --page-margin: 20px; }
+}
+
+/* ---------------------------------------------------------------------
+   STEP 3: A tiny CSS reset.
+   WHY: Browsers add their own default margins and sizing. Resetting them
+        makes the page match the Figma design more predictably.
+   TIP: `box-sizing: border-box` means padding and border are INCLUDED in
+        an element's width. Figma measures boxes the same way.
+   --------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ---------------------------------------------------------------------
+   STEP 4: Keyboard focus ring.
+   WHY: People who navigate with the Tab key need to SEE which element is
+        focused. The UI kit shows a 2px red outline for focus.
+   COMMON MISTAKE: writing `outline: none` without a replacement makes the
+        site unusable for keyboard users.
+   --------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------
+   STEP 5: Shared button style (UI kit > Actions & form elements).
+   44px tall, 4px corners. `.btn--outline` is the white button with a
+   border, like "Student login" and "Back to top".
+   TIP: BEM naming  block__element--modifier  keeps class names readable.
+   --------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-white);
+  color: var(--color-ink);
+  font: 600 13px/1 var(--font-sans);
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--color-ink); }
+.btn svg,
+.btn img { width: 18px; height: 18px; flex: none; }
+
+/* Helper used to hide text visually but keep it for screen readers. */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

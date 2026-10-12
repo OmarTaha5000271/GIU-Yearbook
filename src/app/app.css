@@ -1,0 +1,7 @@
+/* The page content is centered and limited to the Figma desktop width:
+   1440px artboard - 2 x 64px margins = 1312px of content. */
+main {
+  max-width: calc(1312px + 2 * var(--page-margin));
+  margin: 0 auto;
+  padding: 0 var(--page-margin) var(--space-9);
+}

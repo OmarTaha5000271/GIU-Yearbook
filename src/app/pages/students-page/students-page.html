@@ -1,0 +1,110 @@
+<!-- =====================================================================
+     FILE: pages/students-page/students-page.html
+     WHAT: The directory page layout, filters, loading states, and card list.
+     WHY: Each visible student is rendered by the reusable StudentCard component.
+     ===================================================================== -->
+
+<!-- STEP 1: HERO (overline, big serif title, description) -->
+<section class="hero">
+  <div class="hero__text">
+    <p class="overline">THE GIU YEARBOOK / CLASS OF 2028</p>
+    <h1 class="hero__title">Different stories. One class.</h1>
+    <p class="hero__desc">
+      Meet the people who made these years unforgettable. A collection of faces, voices, and what
+      comes next.
+    </p>
+  </div>
+  <div class="hero__aside">
+    <span>OUR PEOPLE</span>
+    <span>Our next chapter starts here.</span>
+  </div>
+</section>
+
+<!-- STEP 2: TAB ROW. For now there is a single tab, "All students".
+     TIP: later, Graduation / Campus life tabs from the kit can reuse this. -->
+<div class="tabs">
+  <span class="tabs__tab"
+    >All students <b>{{ totalLabel() }}</b></span
+  >
+  <span class="tabs__hint">Every face has a story. Select a card to read theirs.</span>
+</div>
+
+<!-- STEP 3: FILTER BAR.
+     (input) / (change) = EVENT BINDINGS: round brackets mean
+     "when this happens, run this method".
+     [value] = PROPERTY BINDING: show the current signal value.
+     COMMON MISTAKE: writing searchText instead of searchText().
+     Signals are functions, so you must CALL them to read the value. -->
+<div class="filters">
+  <label class="field field--search">
+    <span class="visually-hidden">Search students by name</span>
+    <img src="icons/search.svg" alt="" aria-hidden="true" />
+    <input
+      type="search"
+      placeholder="Search students by name..."
+      [value]="searchText()"
+      (input)="onSearch($event)"
+    />
+  </label>
+
+  <label class="field field--select">
+    <span class="visually-hidden">Filter by faculty</span>
+    <select [value]="selectedFaculty()" (change)="onFacultyChange($event)">
+      <option value="all">All faculties</option>
+      <!-- @for builds one <option> per faculty found in the data -->
+      @for (f of faculties(); track f) {
+        <option [value]="f">{{ f }}</option>
+      }
+    </select>
+    <img src="icons/chevron-down.svg" alt="" aria-hidden="true" />
+  </label>
+
+  <label class="field field--select">
+    <span class="visually-hidden">Sort students</span>
+    <select [value]="sortBy()" (change)="onSortChange($event)">
+      <option value="featured">Featured first</option>
+      <option value="name">Name A–Z</option>
+    </select>
+    <img src="icons/chevron-down.svg" alt="" aria-hidden="true" />
+  </label>
+
+  <!-- aria-live: screen readers announce the new count after each filter. -->
+  <p class="filters__count" aria-live="polite">{{ visibleStudents().length }} student stories</p>
+</div>
+
+<!-- STEP 4: THE THREE STATES OF DATA LOADING.
+     @if / @else if / @else shows exactly one block.
+     Real apps ALWAYS handle: loading, error, empty and success. -->
+@if (loading()) {
+  <p class="status" role="status">Loading students…</p>
+} @else if (errorMessage()) {
+  <p class="status status--error" role="alert">{{ errorMessage() }}</p>
+} @else if (visibleStudents().length === 0) {
+  <p class="status">No students match your search. Try a different name or faculty.</p>
+} @else {
+  <!-- STEP 5: THE GRID. One <app-student-card> per student.
+       [student]="s" passes the data into the card's input(). -->
+  <div class="grid" aria-label="Student directory">
+    @for (s of visibleStudents(); track s.id) {
+      <app-student-card [student]="s" />
+    }
+  </div>
+}
+
+<!-- STEP 6: DIRECTORY END (completion message + Back to top) -->
+@if (!loading() && !errorMessage()) {
+  <div class="end">
+    <p class="end__message">
+      <img src="icons/check.svg" alt="" aria-hidden="true" />
+      @if (visibleStudents().length === students().length) {
+        You've met all {{ students().length }} students in this sample collection.
+      } @else {
+        Showing {{ visibleStudents().length }} of {{ students().length }} students.
+      }
+    </p>
+    <button type="button" class="btn" (click)="scrollToTop()">
+      Back to top
+      <img src="icons/arrow-up.svg" alt="" aria-hidden="true" />
+    </button>
+  </div>
+}
