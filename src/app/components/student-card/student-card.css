@@ -4,6 +4,7 @@
    WHY: Scoped styles and shared design tokens match the Yearbook UI.
    ===================================================================== */
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -62,3 +63,23 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
 }
+
+.card__save {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-ink);
+  cursor: pointer;
+}
+.card__save:hover, .card__save--on { color: var(--color-red); }
+.card__save svg { width: 20px; height: 20px; }
+.card__save--on svg { fill: currentColor; }
+.card__save:focus-visible { outline: 2px solid var(--color-red); outline-offset: 2px; }

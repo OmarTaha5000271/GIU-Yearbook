@@ -4,7 +4,8 @@
    FIGMA: Select the header in "Class of 2028 · Student directory".
           Notice 3 parts: logo + title, 3 navigation links, login button.
    ===================================================================== */
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { SavedService } from '../../services/saved.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -29,4 +30,5 @@ export class Header {
   // STEP 3: A signal holds a value that, when it changes, updates the
   // screen automatically. Here: did the logo image fail to load?
   protected readonly logoFailed = signal(false);
+  protected readonly saved = inject(SavedService);
 }

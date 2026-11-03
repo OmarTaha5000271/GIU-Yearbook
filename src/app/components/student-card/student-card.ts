@@ -5,9 +5,10 @@
         own portrait, including a fallback when the image cannot load.
    ===================================================================== */
 
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Student } from '../../models/student.model';
+import { SavedService } from '../../services/saved.service';
 
 @Component({
   selector: 'app-student-card',
@@ -18,6 +19,16 @@ import { Student } from '../../models/student.model';
 export class StudentCard {
   // Every card needs a student from the page that displays it.
   readonly student = input.required<Student>();
+
+  private readonly saved = inject(SavedService);
+  protected readonly isSaved = computed(() => this.saved.isSaved(this.student().id));
+
+  protected onToggleSaved(event: Event): void {
+    // Saving must not follow the card's profile link.
+    event.preventDefault();
+    event.stopPropagation();
+    this.saved.toggle(this.student().id);
+  }
 
   // Keep track of whether the student's portrait failed to load.
   private readonly imageFailed = signal(false);

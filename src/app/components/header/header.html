@@ -40,9 +40,14 @@
     </nav>
 
     <!-- STEP 4: The login button uses the shared .btn styles from styles.css. -->
+    <div class="header__actions">
+      <p class="header__saved" aria-live="polite" aria-atomic="true">
+        Saved <span class="header__count">{{ saved.count() }}</span>
+      </p>
     <a class="btn header__login" routerLink="/login">
       Student login
       <img src="icons/arrow-up-right.svg" alt="" aria-hidden="true" />
     </a>
+    </div>
   </div>
 </header>
