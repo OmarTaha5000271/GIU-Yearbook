@@ -6,6 +6,8 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
+  { path: 'login', renderMode: RenderMode.Client },
+  { path: 'profile', renderMode: RenderMode.Client },
   {
     path: 'students/:id',
     renderMode: RenderMode.Server,

@@ -5,6 +5,7 @@
           Notice 3 parts: logo + title, 3 navigation links, login button.
    ===================================================================== */
 import { Component, inject, signal } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 import { SavedService } from '../../services/saved.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -17,6 +18,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './header.css',
 })
 export class Header {
+  protected readonly auth = inject(AuthService);
   // STEP 2: Navigation data as an array. WHY: the template loops over it
   // with @for, so adding a link means adding one line here, not HTML.
   // `exact: true` means "active only on exactly '/'". Without it the home

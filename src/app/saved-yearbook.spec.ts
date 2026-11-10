@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { App } from './app';
@@ -15,7 +17,7 @@ describe('Saved yearbook', () => {
     }));
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideRouter(routes),
+      providers: [provideRouter(routes), provideHttpClient(), provideHttpClientTesting(),
         { provide: StudentService, useValue: { getStudents: () => of(students) } }],
     }).compileComponents();
     const fixture = TestBed.createComponent(App);
