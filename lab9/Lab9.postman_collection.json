@@ -1,0 +1,210 @@
+{
+  "info": {
+    "name": "Lab 9 Books API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "bookId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Create Dune",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Dune\",\n  \"author\": \"Frank Herbert\",\n  \"year\": 1965\n}"
+        },
+        "url": "{{baseUrl}}/api/books"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Book created\", () => pm.response.to.have.status(201));",
+              "pm.collectionVariables.set(\"bookId\", pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create Emma",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Emma\",\n  \"author\": \"Jane Austen\",\n  \"year\": 1815\n}"
+        },
+        "url": "{{baseUrl}}/api/books"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Book created\", () => pm.response.to.have.status(201));",
+              "pm.collectionVariables.set(\"bookId\", pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create Persuasion",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Persuasion\",\n  \"author\": \"Jane Austen\",\n  \"year\": 1817\n}"
+        },
+        "url": "{{baseUrl}}/api/books"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Book created\", () => pm.response.to.have.status(201));",
+              "pm.collectionVariables.set(\"bookId\", pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "List books",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books"
+      }
+    },
+    {
+      "name": "Show one book",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books/{{bookId}}"
+      }
+    },
+    {
+      "name": "Missing title",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"author\": \"Jane Austen\"}"
+        }
+      }
+    },
+    {
+      "name": "Update book",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books/{{bookId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"year\": 1818}"
+        }
+      }
+    },
+    {
+      "name": "Delete book",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/books/{{bookId}}"
+      }
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # GIUYearbook
 
+See [Lab 9 setup and tasks](lab9/README.md) for PHP forms and the Laravel Books API.
+
 See [Lab 7 notes](LAB7.md) for the login test account, Task 1 and Task 2 implementation, and verification checklist.
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.0.
